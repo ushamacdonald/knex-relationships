@@ -16,12 +16,22 @@ router.get('/', function (req, res) {
 router.get('/profiles/:id', function(req, res) {
   db.getProfile(req.params.id, req.app.get('connection'))
     .then(function (profiles) {
-      console.log(profiles);
       res.render('view', profiles[0])
     })
     .catch(function (err) {
       res.status(500).send('DATABASE ERROR: ' + err.message)
     })
+})
+
+router.get('/new', function(req, res) {
+  res.render('new')
+})
+
+router.post('/new', function(req, res){
+db.newUser(req.body, req.app.get('connection'))
+  .then(function(profile) {
+    res.redirect('/profiles/' + profile.user_id)
+  })
 })
 
 module.exports = router
