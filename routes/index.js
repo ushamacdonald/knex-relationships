@@ -23,10 +23,20 @@ router.get('/profiles/:id', function(req, res) {
     })
 })
 
+
+router.get('/posts/new', function (req, res) {
+  db.getUsers(req.app.get('connection'))
+     .then(function(users) {
+       res.render('posts', {users: users})
+     })
+})
+router.post('/posts/new', function(req, res){
+})
+
+
 router.get('/new', function(req, res) {
   res.render('new')
 })
-
 router.post('/new', function(req, res){
 db.newUser(req.body, req.app.get('connection'))
   .then(function(profile) {
