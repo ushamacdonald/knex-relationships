@@ -25,7 +25,7 @@ function newUser (data, connection) {
   var insertUser = {name: data.name, email: data.email}
   return connection('users').insert(insertUser)
     .then(function(userId) {
-      var insertProfile = {url: data.url, image: data.image, user_id: userId[0] }
+      var insertProfile = {url: data.url, image: data.image, user_id: userId[0]}
       return connection('profiles').insert(insertProfile)
     })
     .then(function (profile_id) {
